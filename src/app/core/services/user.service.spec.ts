@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { UserService } from './user.service';
+import { environment } from '../../../environments/environment';
 
 describe('UserService', () => {
   let service: UserService;
@@ -29,8 +30,7 @@ describe('UserService', () => {
       expect(users).toEqual(mockUsers as any);
     });
 
-    const apiUrl = (service as any).apiUrl;
-    const request = httpMock.expectOne(`${apiUrl}/users`);
+    const request = httpMock.expectOne(`${environment.apiUrl}/users`);
     expect(request.request.method).toBe('GET');
     request.flush(mockUsers);
 
@@ -45,8 +45,7 @@ describe('UserService', () => {
       expect(user).toEqual(createdUser as any);
     });
 
-    const apiUrl = (service as any).apiUrl;
-    const request = httpMock.expectOne(`${apiUrl}/users`);
+    const request = httpMock.expectOne(`${environment.apiUrl}/users`);
     expect(request.request.method).toBe('POST');
     request.flush(createdUser);
 
