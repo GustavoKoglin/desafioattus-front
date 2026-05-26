@@ -29,7 +29,8 @@ describe('UserService', () => {
       expect(users).toEqual(mockUsers as any);
     });
 
-    const request = httpMock.expectOne('https://desafioattus-back.vercel.app/api/users');
+    const apiUrl = (service as any).apiUrl;
+    const request = httpMock.expectOne(`${apiUrl}/users`);
     expect(request.request.method).toBe('GET');
     request.flush(mockUsers);
 
@@ -44,7 +45,8 @@ describe('UserService', () => {
       expect(user).toEqual(createdUser as any);
     });
 
-    const request = httpMock.expectOne('https://desafioattus-back.vercel.app/api/users');
+    const apiUrl = (service as any).apiUrl;
+    const request = httpMock.expectOne(`${apiUrl}/users`);
     expect(request.request.method).toBe('POST');
     request.flush(createdUser);
 
