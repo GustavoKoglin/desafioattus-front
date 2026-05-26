@@ -42,11 +42,10 @@ npm ci
 | `npm run start:stage` | Serve a aplicação em modo **production** para validação de **staging**. |
 | `npm run start:prod` | Serve a aplicação em modo **production**. |
 
-> **Acesse a aplicação com email e senha abaixo:**
-> Email: `gustavo.koglin@teste.com`
-> Senha: `Teste@teste123!`
-> 
-> **Demo credentials** – use `gustavo.koglin@teste.com` / `Teste@teste123!` for login (demo only).
+> **Acesse a aplicação demo através do link da Vercel, utilize o email e senha abaixo:** <br>
+> Email: `gustavo.koglin@teste.com` <br>
+> Senha: `Teste@teste123!` <br>
+
 #### Uso típico
 ```bash
 # Desenvolvimento rápido (auto‑reload)
