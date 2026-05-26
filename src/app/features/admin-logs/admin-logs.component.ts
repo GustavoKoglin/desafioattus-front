@@ -17,7 +17,7 @@ import { UserService } from '../../core/services/user.service';
 import { AuthService } from '../../core/services/auth.service';
 import { UserModalComponent } from '../user-modal/user-modal.component';
 import { User } from '../../core/models/user';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin-logs',
