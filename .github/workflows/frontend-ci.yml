@@ -2,18 +2,36 @@ name: Frontend CI
 
 on:
   push:
-    paths:
-      - 'attus-frontend/**'
+    branches:
+      - main
+      - pr-scripts-env
   pull_request:
-    paths:
-      - 'attus-frontend/**'
+    branches:
+      - main
+      - pr-scripts-env
+  workflow_dispatch:
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npx jest --coverage --runInBand
+
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: attus-frontend
 
     steps:
       - name: Checkout repository
