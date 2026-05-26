@@ -5,6 +5,8 @@ import { UserService } from '../../core/services/user.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { signal } from '@angular/core';
+import { AuthService } from '../../core/services/auth.service';
 
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 
@@ -19,16 +21,22 @@ describe('UserModalComponent', () => {
       updateUser: jest.fn().mockReturnValue(of({}))
     };
 
+    const mockAuthService = {
+      currentUser: signal(null),
+      hasRole: jest.fn().mockReturnValue(false)
+    };
+
     await TestBed.configureTestingModule({
       imports: [UserModalComponent, BrowserAnimationsModule, TranslateModule.forRoot()],
       providers: [
         { provide: MatDialogRef, useValue: { close: jest.fn() } },
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: UserService, useValue: mockUserService },
+        { provide: AuthService, useValue: mockAuthService },
         provideEnvironmentNgxMask()
       ]
     }).compileComponents();
-    
+
     fixture = TestBed.createComponent(UserModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

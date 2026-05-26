@@ -1,37 +1,54 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
   let service: UserService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule]
+    });
     service = TestBed.inject(UserService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get initial users with delay', fakeAsync(() => {
-    let result: any;
-    service.getUsers().subscribe(users => result = users);
-    
-    expect(result).toBeUndefined(); // Before delay
-    
-    tick(800); // Simulate delay
-    
-    expect(result).toBeDefined();
-    expect(result.length).toBeGreaterThan(0);
-  }));
+  it('should get users and update signal', () => {
+    const mockUsers = [{ id: '1', name: 'User Test' }];
 
-  it('should add a user and update signal', fakeAsync(() => {
+    service.getUsers().subscribe(users => {
+      expect(users).toEqual(mockUsers as any);
+    });
+
+    const request = httpMock.expectOne('http://localhost:3000/api/users');
+    expect(request.request.method).toBe('GET');
+    request.flush(mockUsers);
+
+    expect(service.users()).toEqual(mockUsers as any);
+  });
+
+  it('should add a user and update signal', () => {
     const newUser = { id: '', name: 'Test', email: 'test@t.com', cpf: '000', phone: '123', phoneType: 'celular' as const };
-    
-    service.addUser(newUser).subscribe();
-    tick(500);
-    
+    const createdUser = { ...newUser, id: '2' };
+
+    service.addUser(newUser).subscribe(user => {
+      expect(user).toEqual(createdUser as any);
+    });
+
+    const request = httpMock.expectOne('http://localhost:3000/api/users');
+    expect(request.request.method).toBe('POST');
+    request.flush(createdUser);
+
     const users = service.users();
     expect(users.find(u => u.name === 'Test')).toBeDefined();
-  }));
+  });
 });

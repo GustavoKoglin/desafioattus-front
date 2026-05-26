@@ -2,6 +2,12 @@
 
 Este projeto é a solução prática do desafio FrontEnd da Attus. A aplicação consiste em um sistema de listagem e cadastro de usuários, construída seguindo todas as diretrizes solicitadas, focando em performance, boas práticas e organização de código.
 
+## Links úteis
+- **Repositório Frontend**: [github.com/GustavoKoglin/desafioattus-front](https://github.com/GustavoKoglin/desafioattus-front)
+- **Repositório Backend**: [github.com/GustavoKoglin/desafioattus-back](https://github.com/GustavoKoglin/desafioattus-back)
+- **Demo local**: [http://localhost:4200/](http://localhost:4200/)
+- **Demo em produção**: [https://desafioattus-front.vercel.app](https://desafioattus-front.vercel.app)
+
 ## 🚀 Tecnologias Utilizadas
 - **Angular 17** (Standalone Components)
 - **Angular Material** (Estilização de componentes, Modal)
@@ -29,12 +35,12 @@ npm ci
 |--------|-----------|
 | `npm start` | Inicia o servidor de desenvolvimento (modo **development**) – equivalente a `npm run start:dev`. |
 | `npm run build` | Compila a aplicação para produção (modo **production**). |
-| `npm run build:dev` | Compila usando a configuração **development** (não minifica, sourcemaps). |
-| `npm run build:stage` | Compila usando a configuração **production** (para ambiente *staging*). |
-| `npm run build:prod` | Compila usando a configuração **production** (para ambiente *produção*). |
-| `npm run start:dev` | Serve a aplicação localmente com a configuração **development** (`ng serve`). |
-| `npm run start:stage` | Serve a aplicação usando a configuração **production** (ideal para testes de *staging*). |
-| `npm run start:prod` | Serve a aplicação em modo **production** (como seria em Vercel). |
+| `npm run build:dev` | Compila a aplicação em modo **development**. |
+| `npm run build:stage` | Compila a aplicação com a configuração usada para **staging**. |
+| `npm run build:prod` | Compila a aplicação com a configuração usada para **produção**. |
+| `npm run start:dev` | Serve a aplicação localmente em modo **development**. |
+| `npm run start:stage` | Serve a aplicação em modo **production** para validação de **staging**. |
+| `npm run start:prod` | Serve a aplicação em modo **production**. |
 
 > **Acesse a aplicação com email e senha abaixo:**
 > Email: `gustavo.koglin@teste.com`
@@ -60,6 +66,9 @@ npm run start:prod
 npm run test
 ```
 Um diretório `coverage/` será criado com o relatório detalhado dos testes.
+
+## 🧪 Testes E2E
+Não há script de e2e configurado neste projeto no momento. Os testes automatizados disponíveis são os unitários via Jest.
 
 ## 🏗️ Estrutura e Decisões Técnicas
 - **Estado com Signals:** Para o gerenciamento de estado local da aplicação, foi adotada a abordagem com `Signals`, nativa e recomendada a partir do Angular 16+, oferecendo extrema performance comparada ao Zone.js tradicional.
