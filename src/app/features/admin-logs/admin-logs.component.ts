@@ -17,16 +17,17 @@ import { UserService } from '../../core/services/user.service';
 import { AuthService } from '../../core/services/auth.service';
 import { UserModalComponent } from '../user-modal/user-modal.component';
 import { User } from '../../core/models/user';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin-logs',
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     ReactiveFormsModule,
-    MatCardModule, 
-    MatButtonModule, 
-    MatIconModule, 
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
     MatTabsModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -65,7 +66,7 @@ export class AdminLogsComponent implements OnInit {
 
     this.currentUser = this.authService.currentUser();
     this.initProfileForm();
-    
+
     // Busca dados completos para preencher o formulário
     this.userService.getMe().subscribe({
       next: (fullUser) => {
@@ -78,7 +79,7 @@ export class AdminLogsComponent implements OnInit {
         });
       }
     });
-    
+
     if (this.isAdmin) {
       this.fetchLogs();
       this.fetchPlatformUsers();
@@ -96,7 +97,7 @@ export class AdminLogsComponent implements OnInit {
 
   saveProfile() {
     if (this.profileForm.invalid) return;
-    
+
     const updatedData = { ...this.currentUser, ...this.profileForm.value };
     this.userService.updateMe(updatedData).subscribe({
       next: () => {
@@ -110,7 +111,7 @@ export class AdminLogsComponent implements OnInit {
   }
 
   fetchLogs() {
-    this.http.get<any[]>('http://localhost:3000/api/logs').subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/logs`).subscribe({
       next: (data) => {
         this.logs = data.reverse();
         this.loading = false;
