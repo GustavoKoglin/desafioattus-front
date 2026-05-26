@@ -3,17 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = environment.apiUrl;
   private http = inject(HttpClient);
 
   private _users = signal<User[]>([]);
   public users = this._users.asReadonly();
-  
+
   public logs = signal<any[]>([]);
 
   constructor() { }
